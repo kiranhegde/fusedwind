@@ -72,7 +72,7 @@ class Curve(VariableTree):
             points[:, i] = self._splines[i](self.s)
 
         self.initialize(points)
-
+ 
 @base
 class AirfoilShape(Curve):
     """
