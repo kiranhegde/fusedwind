@@ -8,7 +8,9 @@ from openmdao.lib.datatypes.api import VarTree, Float, Array, Bool, Str, List, I
 
 from fusedwind.turbine.geometry_vt import BladeSurfaceVT, BladePlanformVT
 from fusedwind.turbine.geometry import RedistributedBladePlanform, SplineComponentBase, FFDSplineComponentBase
-from fusedwind.turbine.structure_vt import BladeStructureVT3D, CrossSectionStructureVT, BeamStructureVT
+from fusedwind.turbine.structure_vt import BladeStructureVT3D, CrossSectionStructureVT, BeamStructureVT,\
+    CrossSectionMeshVT, ResultVectorArray, CrossSectionElementStressRecoveryVT,\
+    CrossSectionAreasVT, KeyPointsVT
 from fusedwind.turbine.rotoraero_vt import LoadVectorCaseList
 from fusedwind.interface import base, implement_base
 
@@ -782,6 +784,53 @@ class BladeStructureCSBuilder(BladeStructureBuilderBase):
 
             self.cs2d.append(st2d)
 
+@base
+class BeamMeshCSCode(Component):
+    """
+    Base class for computing beam cross-sectional meshes suitable 2D codes
+    such as PreComp, BECAS or VABS.
+
+    The analysis assumes that the list of CrossSectionStructureVT's and the
+    BladePlanformVT are interpolated onto the structural grid, and that
+    the code itself is responsible for the meshing of the cross sections.
+    """
+    cs_areas = VarTree(CrossSectionAreasVT(), desc = '', iotype = 'in')
+    kp_3D = List(KeyPointsVT, desc='List of KeyPointsVTs', iotype='in')
+    cs_mesh_3D = List(CrossSectionMeshVT, desc='List of CrossSectionMeshVTs', iotype='out')
+
+
+
+@base
+class BeamStructureCSCodeWOMesher(Component):
+    """
+    Base class for computing beam structural properties using a cross-sectional
+    code such as PreComp, BECAS or VABS.
+
+    Complementary to BeamStructureCSCode
+    """
+    
+    cs_mesh_3D = List(CrossSectionMeshVT, desc='List of CrossSectionMeshVTs', iotype='in')
+    
+    beam_structure = List(BeamStructureVT, iotype='out', desc='List Structural beam properties')
+    
+    
+    
+@base
+class StressRecoveryCSStressStrain(Component):
+    """
+    Base class for performing cross sectional stress/strain analysis
+    using codes like BECAS and VABS.
+
+    This analysis will typically be in a workflow preceeded by
+    a call to a BeamStructureCSCode or BeamStructureCSCodeWOMesher. It is assumed that the list of
+    LoadVectorCaseList vartrees are interpolated onto the structural grid.
+    """
+    
+    load_cases = List(LoadVectorCaseList, iotype='in', 
+                           desc='List of lists of section load vectors for each radial section'
+                                'used to perform stress/strain analysis')
+    
+    cs_res_3D = List(CrossSectionElementStressRecoveryVT, desc='List of element result dictionary VTs', iotype='out')
 
 @base
 class BeamStructureCSCode(Component):
