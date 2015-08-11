@@ -44,23 +44,6 @@ biax.G23 = 4.539e9
 biax.rho = 1845
 
 
-# add material coordinate systems
-esys_hori = cs_areas.add_csys('esys_hori') # for horizontal layers
-esys_hori.origin_x = 0.0
-esys_hori.origin_y = 0.0
-esys_hori.origin_z = 0.0
-esys_hori.theta_x = -90.0
-esys_hori.theta_y = 180.0
-esys_hori.theta_z = 90.0
-
-esys_vert = cs_areas.add_csys('esys_vert') # for -90deg oriented layers
-esys_vert.origin_x = 0.0
-esys_vert.origin_y = 0.0
-esys_vert.origin_z = 0.0
-esys_vert.theta_x = -180.0
-esys_vert.theta_y = 180.0
-esys_vert.theta_z = 90.0
-
 # add keypoints
 KP000 = cs_areas.add_kp('KP000')
 KP000.x = -0.1
@@ -106,8 +89,9 @@ cap_up.KPs = ['KP003',
               'KP001',
               'KP000'
               ]
-cap_up.mat_name = 'uniax'
-cap_up.esys_name = 'esys_hori'
+cap_up.mat = 'uniax'
+cap_up.fiber_plane_angle = .0
+cap_up.fiber_dir_angle = .0
 
 cap_low = cs_areas.add_area('cap_low')
 cap_low.KPs = ['KP009',
@@ -115,8 +99,9 @@ cap_low.KPs = ['KP009',
               'KP007',
               'KP006'
               ]
-cap_low.mat_name = 'uniax'
-cap_low.esys_name = 'esys_hori'
+cap_low.mat = 'uniax'
+cap_low.fiber_plane_angle = .0
+cap_low.fiber_dir_angle = .0
 
 web = cs_areas.add_area('web')
 web.KPs = ['KP010',
@@ -124,11 +109,12 @@ web.KPs = ['KP010',
               'KP005',
               'KP004'
               ]
-web.mat_name = 'biax'
-web.esys_name = 'esys_vert'
+web.mat = 'biax'
+web.fiber_plane_angle = -90.0
+web.fiber_dir_angle = -90.0
 
 # HOWTO access dict object
-print cs_areas.csysts['esys_vert'].origin_x
+#print cs_areas.csysts['esys_vert'].origin_x
 
 # HOWTO access list obejct
 kp = getattr(cs_areas, 'KP005')
