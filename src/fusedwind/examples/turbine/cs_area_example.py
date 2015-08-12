@@ -1,17 +1,7 @@
 
 # --- 1 -----
 
-import numpy as np
-
-from openmdao.lib.datatypes.api import VarTree
-from openmdao.main.api import Assembly, Component
-
-from fusedwind.interface import implement_base
-from fusedwind.turbine.geometry import read_blade_planform, redistribute_blade_planform
-from fusedwind.turbine.configurations import configure_bladestructure, configure_bladesurface
-from fusedwind.turbine.blade_structure import SplinedBladeStructure
-from fusedwind.turbine.structure_vt import BladeStructureVT3D, \
-    CrossSectionAreasVT
+from fusedwind.turbine.structure_vt import CrossSectionAreasVT
 
 #top = Assembly()
 
@@ -113,14 +103,12 @@ web.mat = 'biax'
 web.fiber_plane_angle = -90.0
 web.fiber_dir_angle = -90.0
 
-# HOWTO access dict object
-#print cs_areas.csysts['esys_vert'].origin_x
-
-# HOWTO access list obejct
+# HOWTO access single list object
 kp = getattr(cs_areas, 'KP005')
 print kp.x
 print kp.y
 
+# HOWTO access list obejct in for loop
 for kpname in cs_areas.KPs:
     print kpname
     kp = getattr(cs_areas, kpname)

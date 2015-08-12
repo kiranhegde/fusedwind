@@ -659,26 +659,6 @@ class SplinedBladeStructure(Assembly):
             for layer in region.layers:
                 region.thickness += np.maximum(0., getattr(region, layer).thickness)
 
-
-@implement_base(ModifyCrossSectionAreasBase)
-class LinearizedCrossSectionAreas(Assembly):
-    '''
-    Class for building a complete linear lines parameterized
-    representation of the blade structure.
-
-    Outputs a CrossSectionAreasVT3D vartree with a discrete
-    representation of the structural geometry.
-
-    '''
-    # TODO: implement linear interpolation method
-    x = Array(iotype='in', desc='spanwise resolution of blade')
-    span_ni = Int(20, iotype='in', desc='Number of discrete points along span')
-    areas3dIn = VarTree(CrossSectionAreasVT3D(), iotype='in',
-                                         desc='Vartree containing initial discrete definition of blade cross section areas')
-    areas3dOut = VarTree(CrossSectionAreasVT3D(), iotype='out',
-                                         desc='Vartree containing modified discrete definition of blade cross section areas')
-
-    
 @base
 class BladeStructureBuilderBase(Component):
     """

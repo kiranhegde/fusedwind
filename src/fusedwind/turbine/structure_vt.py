@@ -488,20 +488,7 @@ class CrossSectionMeshVT(VariableTree):
     emat  = Array(desc='Material per element %s' % defs)
     matprops = Array(desc='Material properties (see docs)')
     elsets = Dict(desc='Dictionary of Elset vartrees')
-    
-#------------------------------------------------------------------------- @base
-#------------------------------------- class CrossSectionMeshVT3D(VariableTree):
-    #----------------------------------------------------------------------- '''
-    #-------------------------------------------------- Container for a 3D mesh.
-    #----------------------------------------------------------------------- '''
-    #--------------------- nl_3d = Array(desc='Nodal points (node nr, x, y, z)')
-    #------------------------ defs = '(Element number, node 1, n2, n3, ..., n8)'
-    #---------------------------------- el_3d = Array(desc='Elements %s' % defs)
-    #--------- defs = '(Element nr, material nr, fiber angle, fiberplane angle)'
-    #---------------------- emat  = Array(desc='Material per element %s' % defs)
-    #------------------- matprops = Array(desc='Material properties (see docs)')
-    #--------------------------- elsets = List(desc='List of element set names')
-    
+   
 @base
 class CrossSectionElementStressRecoveryVT(VariableTree):
     '''
@@ -509,16 +496,3 @@ class CrossSectionElementStressRecoveryVT(VariableTree):
     '''
     el_stresses = Dict(desc='element stresses') # List of ResultVectors
     el_strains = Dict(desc='element strains') # List of ResultVectors
-    
-#------------------------------------------------------------------------ #@base
-#---------------------------------------- #class CrossSectionMesh(VariableTree):
-    #----------------------------------------------------------------------- '''
-    #------------------------------------------ Container for Cross section mesh
-    #----------------------------------------------------------------------- '''
-    #------------------------ nl_2d = Array(desc='Nodal points (node nr, x, y)')
-    #------------------------ defs = '(Element number, node 1, n2, n3, ..., n8)'
-    #---------------------------------- el_2d = Array(desc='Elements %s' % defs)
-    #----------------------- elsets = Dict(desc='element sets') # Lsit of Elsets
-#------------------------------------------------------------------------------ 
-    #------- el_stresses = Dict(desc='element stresses') # List of ResultVectors
-#-------- #    el_strains = Dict(desc='element strains') # List of ResultVectors
