@@ -10,7 +10,7 @@ from fusedwind.interface import implement_base
 from fusedwind.turbine.geometry import read_blade_planform, redistribute_blade_planform
 from fusedwind.turbine.configurations import configure_bladestructure, configure_bladesurface
 from fusedwind.turbine.blade_structure import SplinedBladeStructure
-from fusedwind.turbine.structure_vt import BladeStructureVT3D, Csys,\
+from fusedwind.turbine.structure_vt import BladeStructureVT3D, \
     CrossSectionAreasVT
 
 #top = Assembly()
